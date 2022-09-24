@@ -1,18 +1,23 @@
 #!/bin/bash
 
-read liczba
-n=2
-while ((n<=liczba)): do
-  q=0
-  dol=sqrt($n)
-  p=2
-  while ((p<=dol): do
-    if ((dol%p==0)): then
-      q=1
+pierwsza() {
+  local n=$1
+  for((i=2; i<=$n/2; i++))
+  do
+    odp=$(( n%i ))
+    if [ $odp -eq 0 ]
+    then
+      return
     fi
-    p+=1
-    done
-  if ((q==0)): then
-    echo "$n"
-  n+=1
+  done
+  echo "$n "
+}
+
+read liczba
+wyniki='';
+for((j=2; j<=$liczba; j++))
+do
+  wyniki+=$(pierwsza $j)
 done
+
+echo "$wyniki"
